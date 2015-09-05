@@ -51,10 +51,10 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.MapMaker;
+import com.google.common.io.ByteSink;
+import com.google.common.io.ByteSource;
 import com.google.common.io.Closeables;
 import com.google.common.io.Files;
-import com.google.common.io.InputSupplier;
-import com.google.common.io.OutputSupplier;
 import com.google.common.primitives.Primitives;
 
 public class NbtFactory {   
@@ -247,7 +247,7 @@ public class NbtFactory {
          * @param option - whether or not to compress the output.
          * @throws IOException If anything went wrong.
          */
-        public void saveTo(OutputSupplier<? extends OutputStream> stream, StreamOptions option) throws IOException {
+        public void saveTo(ByteSink stream, StreamOptions option) throws IOException {
             saveStream(this, stream, option);
         }
         
@@ -445,13 +445,13 @@ public class NbtFactory {
      * @return The decoded NBT compound.
      * @throws IOException If anything went wrong.
      */
-    public static NbtCompound fromStream(InputSupplier<? extends InputStream> stream, StreamOptions option) throws IOException {
+    public static NbtCompound fromStream(ByteSource stream, StreamOptions option) throws IOException {
         InputStream input = null;
         DataInputStream data = null;
         boolean suppress = true;
         
         try {
-            input = stream.getInput();
+            input = stream.openStream();
             data = new DataInputStream(new BufferedInputStream(
                 option == StreamOptions.GZIP_COMPRESSION ? new GZIPInputStream(input) : input
             ));
@@ -477,13 +477,13 @@ public class NbtFactory {
      * @param option - whether or not to compress the output.
      * @throws IOException If anything went wrong.
      */
-    public static void saveStream(NbtCompound source, OutputSupplier<? extends OutputStream> stream, StreamOptions option) throws IOException {
+    public static void saveStream(NbtCompound source, ByteSink stream, StreamOptions option) throws IOException {
         OutputStream output = null;
         DataOutputStream data = null;
         boolean suppress = true;
         
         try {
-            output = stream.getOutput();
+            output = stream.openStream();
             data = new DataOutputStream(
                 option == StreamOptions.GZIP_COMPRESSION ? new GZIPOutputStream(output) : output
             );

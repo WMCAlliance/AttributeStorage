@@ -22,8 +22,8 @@ import java.util.Iterator;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 import org.bukkit.inventory.ItemStack;
 
@@ -145,7 +145,7 @@ public class Attributes {
             return Operation.fromId(data.getInteger("Operation", 0));
         }
 
-        public void setOperation(@Nonnull Operation operation) {
+        public void setOperation(@NotNull Operation operation) {
             Preconditions.checkNotNull(operation, "operation cannot be NULL.");
             data.put("Operation", operation.getId());
         }
@@ -154,7 +154,7 @@ public class Attributes {
             return AttributeType.fromId(data.getString("AttributeName", null));
         }
 
-        public void setAttributeType(@Nonnull AttributeType type) {
+        public void setAttributeType(@NotNull AttributeType type) {
             Preconditions.checkNotNull(type, "type cannot be NULL.");
             data.put("AttributeName", type.getMinecraftId());
         }
@@ -163,7 +163,7 @@ public class Attributes {
             return data.getString("Name", null);
         }
 
-        public void setName(@Nonnull String name) {
+        public void setName(@NotNull String name) {
             Preconditions.checkNotNull(name, "name cannot be NULL.");
             data.put("Name", name);
         }
@@ -172,7 +172,7 @@ public class Attributes {
             return new UUID(data.getLong("UUIDMost", null), data.getLong("UUIDLeast", null));
         }
 
-        public void setUUID(@Nonnull UUID id) {
+        public void setUUID(@NotNull UUID id) {
             Preconditions.checkNotNull("id", "id cannot be NULL.");
             data.put("UUIDLeast", id.getLeastSignificantBits());
             data.put("UUIDMost", id.getMostSignificantBits());
@@ -336,7 +336,7 @@ public class Attributes {
                 return Iterators.transform(attributes.iterator(), 
                   new Function<Object, Attribute>() {
                     @Override
-                    public Attribute apply(@Nullable Object element) {
+                    public Attribute apply(@Null Object element) {
                         return new Attribute((NbtCompound) element);
                     }
                 });
