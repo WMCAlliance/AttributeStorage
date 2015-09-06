@@ -17,7 +17,7 @@ Dependency:
 			<groupId>com.comphenix.attribute</groupId>
 			<artifactId>AttributeStorage</artifactId>
 			<version>0.0.3-SNAPSHOT</version>
-			<scope>xompile</scope>
+			<scope>compile</scope>
 		</dependency>
 ```
 
