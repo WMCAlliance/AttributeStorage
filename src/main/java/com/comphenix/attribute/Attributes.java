@@ -249,6 +249,7 @@ public class Attributes {
             setAttributeType(builder.type);
             setName(builder.name);
             setUUID(builder.uuid);
+            setSlot(builder.slot);
         }
 
         private Attribute(NbtCompound data) {
@@ -309,6 +310,23 @@ public class Attributes {
             data.put("UUIDMost", id.getMostSignificantBits());
         }
 
+        public String getSlot() {
+            return data.getString("Slot", null);
+        }
+
+        public void setSlot(String slot) {
+            Preconditions.checkNotNull(slot, "slot cannot be NULL.");
+            data.put("Slot", slot);
+        }
+
+        public NbtCompound getData() {
+            return data;
+        }
+
+        public void setData(NbtCompound data) {
+            this.data = data;
+        }
+
         // Makes it easier to construct an attribute
         public static class Builder {
             private double amount;
@@ -316,6 +334,7 @@ public class Attributes {
             private AttributeType type;
             private String name;
             private UUID uuid;
+            private String slot;
 
             private Builder() {
                 // Don't make this accessible
@@ -343,6 +362,11 @@ public class Attributes {
 
             public Builder uuid(UUID uuid) {
                 this.uuid = uuid;
+                return this;
+            }
+
+            public Builder slot(String slot) {
+                this.slot = slot;
                 return this;
             }
 
