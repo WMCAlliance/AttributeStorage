@@ -19,7 +19,6 @@ package com.comphenix.attribute;
 
 import com.comphenix.attribute.NbtFactory.NbtCompound;
 import com.comphenix.attribute.NbtFactory.NbtList;
-import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterators;
@@ -27,7 +26,6 @@ import com.google.common.collect.Maps;
 import org.bukkit.inventory.ItemStack;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.UUID;
@@ -143,21 +141,13 @@ public class Attributes {
 
     // We can't make Attributes itself iterable without splitting it up into separate classes
     public Iterable<Attribute> values() {
-        return new Iterable<Attribute>() {
-            @Override
-            public Iterator<Attribute> iterator() {
-                // Handle the empty case
-                if (size() == 0)
-                    return Collections.<Attribute>emptyList().iterator();
+        return () -> {
+            // Handle the empty case
+            if (size() == 0)
+                return Collections.<Attribute>emptyList().iterator();
 
-                return Iterators.transform(attributes.iterator(),
-                        new Function<Object, Attribute>() {
-                            @Override
-                            public Attribute apply(@Null Object element) {
-                                return new Attribute((NbtCompound) element);
-                            }
-                        });
-            }
+            return Iterators.transform(attributes.iterator(),
+                    element -> new Attribute((NbtCompound) element));
         };
     }
 

@@ -25,7 +25,6 @@ import com.google.common.collect.MapMaker;
 import com.google.common.io.ByteSink;
 import com.google.common.io.ByteSource;
 import com.google.common.io.Closeables;
-import com.google.common.io.Files;
 import com.google.common.primitives.Primitives;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -65,6 +64,7 @@ public class NbtFactory {
     // Loading/saving compounds
     private LoadCompoundMethod LOAD_COMPOUND;
     private Method SAVE_COMPOUND;
+
     /**
      * Construct an instance of the NBT factory by deducing the class of NBTBase.
      */
