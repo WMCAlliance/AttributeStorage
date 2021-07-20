@@ -107,9 +107,9 @@ public class AttributeStorage {
     private int getBaseDamage(ItemStack stack) {
         // Yes - we have to hard code these values. Cannot use Operation.ADD_PERCENTAGE either.
         switch (stack.getType()) {
-            case WOOD_SWORD:
+            case WOODEN_SWORD:
                 return 4;
-            case GOLD_SWORD:
+            case GOLDEN_SWORD:
                 return 4;
             case STONE_SWORD:
                 return 5;
@@ -118,9 +118,9 @@ public class AttributeStorage {
             case DIAMOND_SWORD:
                 return 7;
 
-            case WOOD_AXE:
+            case WOODEN_AXE:
                 return 3;
-            case GOLD_AXE:
+            case GOLDEN_AXE:
                 return 3;
             case STONE_AXE:
                 return 4;
